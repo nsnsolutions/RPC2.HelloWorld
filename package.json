@@ -1,0 +1,29 @@
+{
+  "name": "helloworld",
+  "version": "0.1.0",
+  "scripts": {
+    "nodemon": "nodemon",
+    "lint": "eslint src/**.js src/**/*.js",
+    "start": "env node --max_old_space_size=${NODE_MAX_MEM} src/index.js",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.188.0",
+    "express": "^4.16.2",
+    "lodash": "^4.17.4",
+    "pino": "^4.10.3",
+    "seneca": "^3.4.3",
+    "seneca-web": "^2.2.0",
+    "seneca-web-adapter-express": "^1.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.15.0",
+    "eslint-plugin-async-await": "0.0.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "mocha": "^4.1.0",
+    "mock-require": "^2.0.2",
+    "nodemon": "^1.14.10",
+    "sinon": "^4.2.1"
+  }
+}

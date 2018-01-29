@@ -1,0 +1,57 @@
+{
+    "env": {
+        "es6": true,
+        "node": true,
+        "mocha": true
+    },
+    "plugins": [ "async-await", "mocha" ], 
+    "extends": [ "eslint:recommended" ],
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module"
+    },
+    "rules": {
+        "async-await/space-after-async": "error",
+        "async-await/space-after-await": "error",
+        "indent": [ "error", 4 ],
+        "linebreak-style": [ "error", "unix" ],
+        "quotes": [ "error", "double" ],
+        "semi": [ "error", "always" ],
+        "prefer-arrow-callback": [ "error", { "allowNamedFunctions": true } ],
+        "arrow-body-style": [ "error", "as-needed" ],
+        "arrow-parens": [ "error", "always" ],
+        "arrow-spacing": [ "error", { "before": true, "after": true } ],
+        "block-scoped-var": "warn",
+        "block-spacing": [ "error", "always" ],
+        "brace-style": [ "error", "1tbs", { "allowSingleLine": false } ],
+        "curly": [ "error", "all" ],
+        "space-before-blocks": [ "error", "always" ],
+        "space-before-function-paren": [ "error", {
+            "named": "never",
+            "anonymous": "always",
+            "asyncArrow": "always"
+        }],
+        "space-unary-ops": [ 2, { "words": true, "nonwords": false } ],
+        "spaced-comment": [ "error", "always" ],
+        "array-bracket-spacing": [ "error", "always" ],
+        "comma-dangle": [ "error", "always-multiline" ],
+        "comma-spacing": [ "error", { "before": false, "after": true } ],
+        "comma-style": [ "error", "last" ],
+        "consistent-return": "warn",
+        "constructor-super": "error",
+        "dot-location": [ "error", "property" ],
+        "dot-notation": "warn",
+        "eol-last": [ "error", "always" ],
+        "eqeqeq": [ "error", "always" ],
+        "max-depth": [ "error", 4 ],
+        "max-len": [ "warn", 100, { 
+            "ignoreTrailingComments": true,
+            "ignoreUrls": true,
+            "ignoreStrings": true,
+            "ignoreTemplateLiterals": true,
+            "ignoreRegExpLiterals": true
+        }],
+        "no-console": "warn",
+        "no-trailing-spaces": "warn"
+    }
+}

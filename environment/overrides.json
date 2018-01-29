@@ -1,0 +1,5 @@
+{
+    "local.common.logLevel": "INFO",
+    "local.helloworld.prefix": "Hello",
+    "local.env.AWS_REGION": "us-west-2"
+}
