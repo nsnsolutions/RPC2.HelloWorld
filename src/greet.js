@@ -7,7 +7,7 @@ module.exports = function GreetPlugin(opts) {
     const seneca = this;
     let prefix;
 
-    seneca.rpc.add("role:public,ver:v1,cmd:greet", greet_v1);
+    seneca.rpc.add("role:helloworld,ver:v1,cmd:greet", greet_v1);
 
     seneca.add({ init: module.exports.name }, (args, done) => {
         init()

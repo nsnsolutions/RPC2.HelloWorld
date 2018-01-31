@@ -9,7 +9,7 @@ const senecaOpts = { serviceName: "helloworld-unittest" };
 
 describe("Greeting Method", () => {
 
-    before(function () {
+    before(() => {
         mock("aws-sdk", {
             SSM: function () {
                 return {
@@ -19,22 +19,22 @@ describe("Greeting Method", () => {
         });
     });
 
-    beforeEach(function () {
+    beforeEach(() => {
         /* If you need to reset a database mock or stub history */
     });
 
-    it("should responde to health check.", function (done) {
+    it("should responde to health check.", (done) => {
 
         const seneca = Seneca(senecaOpts)
             .test(done);
 
-        seneca.act("role:seneca,cmd:stats", (err, resp) => {
+        seneca.act("role:seneca,cmd:stats", (err) => {
             assert.isNull(err, err && err.message);
             done();
         });
     });
 
-    it("should say \"Hello, world\"", function (done) {
+    it("should say \"Hello, world\"", (done) => {
 
         const seneca = Seneca(senecaOpts)
             .test(done)
@@ -45,14 +45,14 @@ describe("Greeting Method", () => {
         const params = { /* no params */ };
         const payload = { args: { body: JSON.stringify(params) } };
 
-        seneca.act("role:public,ver:v1,cmd:greet", payload, (err, resp) => {
+        seneca.act("role:helloworld,ver:v1,cmd:greet", payload, (err, resp) => {
             assert.isNull(err, err && err.message);
             assert.equal(resp.result, "Hello, world!");
             done();
         });
     });
 
-    it("should say \"Hello, Person!\" if \"Person\" is passed with the request.", function (done) {
+    it("should say \"Hello, Person!\" if \"Person\" is passed with the request.", (done) => {
 
         const seneca = Seneca(senecaOpts)
             .test(done)
@@ -61,16 +61,15 @@ describe("Greeting Method", () => {
             .use("../src/greet");
 
         const params = { name: "Person" };
-        const payload = { args: { body: JSON.stringify(params) } };
 
-        seneca.act("role:public,ver:v1,cmd:greet", payload, (err, resp) => {
+        seneca.act("role:helloworld,ver:v1,cmd:greet", params, (err, resp) => {
             assert.isNull(err, err && err.message);
             assert.equal(resp.result, "Hello, Person!");
             done();
         });
     });
 
-    it("should say \"Hola, world!\" if the greeting prefix is set in the config overrides", function (done) {
+    it("should say \"Hola, world!\" if the greeting prefix is set in the config overrides", (done) => {
 
         const seneca = Seneca(senecaOpts)
             .test(done)
@@ -79,16 +78,15 @@ describe("Greeting Method", () => {
             .use("../src/greet", { defaultName: "world" });
 
         const params = { /* No Params */ };
-        const payload = { args: { body: JSON.stringify(params) } };
 
-        seneca.act("role:public,ver:v1,cmd:greet", payload, (err, resp) => {
+        seneca.act("role:helloworld,ver:v1,cmd:greet", params, (err, resp) => {
             assert.isNull(err, err && err.message);
             assert.equal(resp.result, "Hola, world!");
             done();
         });
     });
 
-    it("should return a 400 error if name is not given as a string.", function (done) {
+    it("should return a 400 error if name is not given as a string.", (done) => {
 
         const seneca = Seneca(senecaOpts)
             .test(done)
@@ -97,9 +95,8 @@ describe("Greeting Method", () => {
             .use("../src/greet", { defaultName: "world" });
 
         const params = { name: [] };
-        const payload = { args: { body: JSON.stringify(params) } };
 
-        seneca.act("role:public,ver:v1,cmd:greet", payload, (err, resp) => {
+        seneca.act("role:helloworld,ver:v1,cmd:greet", params, (err, resp) => {
             assert.isNull(err, err && err.message);
             assert.isTrue(resp.hasError, "No error returned.");
             assert.equal(resp.code, 400, "Wrong error code returned.");

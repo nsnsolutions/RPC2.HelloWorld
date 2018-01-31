@@ -11,5 +11,4 @@ ADD npm-shrinkwrap.json /usr/app/npm-shrinkwrap.json
 RUN npm install --production
 
 ADD environment /usr/app/environment
-ADD routes.json /usr/app/routes.json
 ADD src /usr/app/src

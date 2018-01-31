@@ -1,5 +1,6 @@
 {
     "local.common.logLevel": "INFO",
     "local.helloworld.prefix": "Hello",
-    "local.env.AWS_REGION": "us-west-2"
+    "local.env.AWS_REGION": "us-west-2",
+    "local.env.SERVICE_LB": "dev-microservice.velma.com"
 }

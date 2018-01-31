@@ -3993,23 +3993,6 @@
         }
       }
     },
-    "seneca-web": {
-      "version": "2.2.0",
-      "resolved": "https://registry.npmjs.org/seneca-web/-/seneca-web-2.2.0.tgz",
-      "integrity": "sha512-sRPYvy4CKZJuemrCbNfT2TPdgcvki/VQ1k7XSljHPa6lhVKZhUcAMNPHOMCbJ+FVTgfSJxEP+EUNwpySte0doA==",
-      "requires": {
-        "eraro": "0.4.1",
-        "lodash": "4.17.4"
-      }
-    },
-    "seneca-web-adapter-express": {
-      "version": "1.1.1",
-      "resolved": "https://registry.npmjs.org/seneca-web-adapter-express/-/seneca-web-adapter-express-1.1.1.tgz",
-      "integrity": "sha512-s957mzgk3sRjIUI2I4cFsx7Qi4rsgWU58yduDqa98xrMHTea3tGP0drXPI5eDjmPXsuzuBRmnM/vOyT4u7oHvg==",
-      "requires": {
-        "lodash": "4.17.4"
-      }
-    },
     "serve-static": {
       "version": "1.13.1",
       "resolved": "https://registry.npmjs.org/serve-static/-/serve-static-1.13.1.tgz",

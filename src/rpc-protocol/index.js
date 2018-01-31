@@ -27,7 +27,7 @@ module.exports.preload = function RpcProtocolPreload() {
         const fn = args.pop();
 
         args.push((request, done) => {
-            handleRequest(request, fn)
+            fn.call(seneca, request)
                 .then((result) => toResponse(result))
                 .catch((err) => toErrorResponse(err))
                 .then((response) => done(null, response));
@@ -63,21 +63,6 @@ module.exports.preload = function RpcProtocolPreload() {
         }
 
         return result.result;
-    }
-
-    async function handleRequest(request, impl) {
-
-        let body;
-
-        try {
-            body = JSON.parse(request.args.body);
-
-        } catch (err) {
-            throw new RpcExceptions.BadRequest(`Failed to parse request body: ${err.message}`, err);
-
-        }
-
-        return impl.call(seneca, body, request);
     }
 
     async function toResponse(result) {
