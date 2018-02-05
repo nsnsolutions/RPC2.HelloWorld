@@ -58,6 +58,39 @@ class ServiceUnavailable extends RpcError {
     }
 }
 
+function fromCode(code, message, inner) {
+
+    switch (code) {
+
+    case 400:
+        return new BadRequest(message, inner);
+
+    case 401:
+        return new Unauthorized(message, inner);
+
+    case 403:
+        return new Forbidden(message, inner);
+
+    case 404:
+        return new NotFound(message, inner);
+
+    case 409:
+        return new Conflict(message, inner);
+
+    case 500:
+        return new InternalError(message, inner);
+
+    case 501:
+        return new NotImplemented(message, inner);
+
+    case 503:
+        return new ServiceUnavailable(message, inner);
+
+    default:
+        return new Error(message);
+    }
+}
+
 module.exports = {
     RpcError: RpcError,
     BadRequest: BadRequest,
@@ -68,4 +101,5 @@ module.exports = {
     InternalError: InternalError,
     NotImplemented: NotImplemented,
     ServiceUnavailable: ServiceUnavailable,
+    fromCode: fromCode,
 };

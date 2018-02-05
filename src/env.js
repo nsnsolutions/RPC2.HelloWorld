@@ -1,6 +1,5 @@
 "use strict";
 
-const util = require("util");
 const AWS = require("aws-sdk");
 
 module.exports = function Environment() {};
@@ -22,11 +21,7 @@ module.exports.preload = function EnvironmentPreload(opts) {
         }
     }
 
-    /* Initialize AWS SSMClient */
-
     const ssmClient = new AWS.SSM({ apiVersion: "2014-11-06" });
-    const _getParameters = util.promisify(ssmClient.getParameters)
-        .bind(ssmClient);
 
     seneca.decorate("env", {
         get stage() {
@@ -65,7 +60,7 @@ module.exports.preload = function EnvironmentPreload(opts) {
             return true;
         }
 
-        var ret = await _getParameters({ Names: [ fullPath ] });
+        const ret = await ssmClient.getParameters({ Names: [ fullPath ] }).promise();
 
         if (ret.Parameters[0]) {
             return true;
@@ -82,7 +77,7 @@ module.exports.preload = function EnvironmentPreload(opts) {
             return catalog[fullPath];
         }
 
-        var ret = await _getParameters({ Names: [ fullPath ] });
+        const ret = await ssmClient.getParameters({ Names: [ fullPath ] }).promise();
 
         if (ret.Parameters[0]) {
 

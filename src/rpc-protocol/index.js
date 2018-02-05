@@ -56,9 +56,8 @@ module.exports.preload = function RpcProtocolPreload() {
         const result = await act.apply(seneca, arguments);
 
         if (result.hasError) {
-            const e = new Error(result.message);
+            const e = RpcExceptions.fromCode(result.code, result.message);
             e.stack = result.stack;
-            e.name = `Remote_${result.name}`;
             throw e;
         }
 
@@ -73,13 +72,11 @@ module.exports.preload = function RpcProtocolPreload() {
     }
 
     async function toTransparentErrorResponse(err) {
-
-        logError(err);
-
         return {
             hasError: true,
             errorName: err.name,
             message: err.message,
+            code: err.code,
             stack: err.stack,
         };
     }
