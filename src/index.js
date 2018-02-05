@@ -19,7 +19,7 @@ const seneca = Seneca(opts)
         type: "http",
         port: "4000",
         host: "0.0.0.0",
-        path: "/helloworld",
+        path: `/${process.env.SERVICE_NAME || PACKAGE.name}`,
         protocol: "http",
         pin: [
             "role:helloworld",
