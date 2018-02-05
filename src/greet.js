@@ -22,7 +22,7 @@ module.exports = function GreetPlugin(opts) {
     // ------------------------------------------------------------------------
 
     async function init() {
-        prefix = await seneca.env.get("helloworld.prefix");
+        prefix = await seneca.env.get("helloworld.prefix", "Hello");
         seneca.log.info({ msg: `Using prefix: ${prefix}` });
     }
 
