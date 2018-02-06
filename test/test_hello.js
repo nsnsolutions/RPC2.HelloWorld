@@ -1,7 +1,6 @@
 "use strict";
 
 const assert = require("chai").assert;
-const mock = require("mock-require");
 const sinon = require("sinon");
 const Seneca = require("seneca");
 
@@ -9,14 +8,13 @@ const senecaOpts = { serviceName: "helloworld-unittest" };
 
 describe("Greeting Method", () => {
 
-    before(() => {
-        mock("aws-sdk", {
-            SSM: function () {
-                return {
-                    getParameters: () => { },
-                };
+    before(function () {
+        this.envConfig = {
+            overrides: {
+                "local.common.logLevel": "debug",
+                "local.helloworld.prefix": "Hello",
             },
-        });
+        };
     });
 
     beforeEach(() => {
@@ -34,31 +32,30 @@ describe("Greeting Method", () => {
         });
     });
 
-    it("should say \"Hello, world\"", (done) => {
+    it("should say \"Hello, world\"", function (done) {
 
         const seneca = Seneca(senecaOpts)
             .test(done)
-            .use("../src/env", { overrides: { "local.helloworld.prefix": "Hello" } })
+            .use("../src/pin")
+            .use("../src/env", this.envConfig)
             .use("../src/rpc-protocol")
             .use("../src/greet", { defaultName: "world" });
 
-        const params = { /* no params */ };
-        const payload = { args: { body: JSON.stringify(params) } };
-
-        seneca.act("role:helloworld,ver:v1,cmd:greet", payload, (err, resp) => {
+        seneca.act("role:helloworld,ver:v1,cmd:greet", {}, (err, resp) => {
             assert.isNull(err, err && err.message);
             assert.equal(resp.result, "Hello, world!");
             done();
         });
     });
 
-    it("should say \"Hello, Person!\" if \"Person\" is passed with the request.", (done) => {
+    it("should say \"Hello, Person!\" if \"Person\" is passed with the request.", function (done) {
 
         const seneca = Seneca(senecaOpts)
             .test(done)
-            .use("../src/env", { overrides: { "local.helloworld.prefix": "Hello" } })
+            .use("../src/pin")
+            .use("../src/env", this.envConfig)
             .use("../src/rpc-protocol")
-            .use("../src/greet");
+            .use("../src/greet", { defaultName: "world" });
 
         const params = { name: "Person" };
 
@@ -73,6 +70,7 @@ describe("Greeting Method", () => {
 
         const seneca = Seneca(senecaOpts)
             .test(done)
+            .use("../src/pin")
             .use("../src/env", { overrides: { "local.helloworld.prefix": "Hola" } })
             .use("../src/rpc-protocol")
             .use("../src/greet", { defaultName: "world" });
@@ -86,11 +84,12 @@ describe("Greeting Method", () => {
         });
     });
 
-    it("should return a 400 error if name is not given as a string.", (done) => {
+    it("should return a 400 error if name is not given as a string.", function (done) {
 
         const seneca = Seneca(senecaOpts)
             .test(done)
-            .use("../src/env", { overrides: { "local.helloworld.prefix": "Hello" } })
+            .use("../src/pin")
+            .use("../src/env", this.envConfig)
             .use("../src/rpc-protocol")
             .use("../src/greet", { defaultName: "world" });
 
