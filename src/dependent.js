@@ -8,9 +8,9 @@ module.exports.preload = function DependentPreload() {
     const seneca = this;
     let dynamoClient, redisClient;
 
-    seneca.rpc.add("role:dependent,inject:DocumentClient", getDocumentClient);
-    seneca.rpc.add("role:dependent,inject:redis", getRedisClient);
-    seneca.rpc.add("role:dependent,inject:got", async () => require("got"));
+    seneca.rpc.addInternal("role:dependent,inject:DocumentClient", getDocumentClient);
+    seneca.rpc.addInternal("role:dependent,inject:redis", getRedisClient);
+    seneca.rpc.addInternal("role:dependent,inject:got", async () => require("got"));
 
     seneca.add({ init: module.exports.name }, (args, done) => {
         init()
